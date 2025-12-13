@@ -1,18 +1,21 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class FoodItem : MonoBehaviour, IInteractable
 {
+    public event System.Action OnPickedUp;
+    public List<ItemData> ItemList => _itemList;
     private List<ItemData> _itemList = new List<ItemData>();
-    private int _partCounter = 0;
 
     public void AddFoodItem(ItemData itemData)
     {
         if (!itemData) return;
-        _itemList.Add(itemData);
+        ItemList.Add(itemData);
         for(int i = 0; i < itemData.Sprites.Count; i++)
         {
-            GameObject itemPart = new GameObject("Part_" + _partCounter++);
+            GameObject itemPart = new GameObject(itemData.name);
             itemPart.transform.SetParent(this.transform);
             SpriteRenderer sr = itemPart.AddComponent<SpriteRenderer>();
             sr.sprite = itemData.Sprites[i];
@@ -40,10 +43,33 @@ public class FoodItem : MonoBehaviour, IInteractable
     {
         InputManager.Instance.PointerMove += OnMove;
         InputManager.Instance.PointerUp += StopDragging;
+        OnPickedUp?.Invoke();
     }
 
     public void OnTouchEnd(FoodItem foodItem)
     {
-        // try to combine
+        // One at a time
+        if (foodItem.ItemList.Count is > 1 or 0) return;
+        // No duplicates
+        if(ItemList.Any(item => item == foodItem.ItemList[0])) return;
+        // Items are ready to be combined
+        if (!foodItem.ItemList[0].IsReadyToBeCombined) { return; }
+        if(ItemList.Any(item => !item.IsReadyToBeCombined)) return;
+
+        foreach (var item in foodItem.ItemList)
+        {
+            AddFoodItem(item);
+        }
+        Destroy(foodItem.gameObject);
+    }
+
+    public void CookItem()
+    {
+        if (ItemList.Count is > 1 or 0) return;
+        ItemData nextCookingStage = ItemList[0].NextCookingStage;
+        if (nextCookingStage == null) return;
+        Destroy(transform.GetChild(0).gameObject);
+        ItemList.Clear();
+        AddFoodItem(nextCookingStage);
     }
 }
