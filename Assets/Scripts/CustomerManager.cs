@@ -34,6 +34,7 @@ public class CustomerManager : Singleton<CustomerManager>
         _customers.Remove(obj.gameObject);
         for(int i = 0; i < _customers.Count; i++)
             _customers[i].GetComponent<Customer>().Target = _customerEndPosition.position + Vector3.right * _spaceBetween * i;
+        CancelInvoke(nameof(AddCustomer));
         Invoke(nameof(AddCustomer), _spawnInterval);
     }
 }
