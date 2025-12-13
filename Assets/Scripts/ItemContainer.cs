@@ -16,6 +16,7 @@ public class ItemContainer : MonoBehaviour, IInteractable
 
     public void OnTouchStart()
     {
+        if (!_containedItemPrefab) return;
         var worldPos = InputManager.Instance.WorldPosition;
         var item = Instantiate(_containedItemPrefab, worldPos, Quaternion.identity);
         var foodItem = item.GetComponent<FoodItem>();

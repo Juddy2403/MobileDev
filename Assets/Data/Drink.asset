@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: edfe5c3cedcb6864a8fe5a52ee89f584, type: 3}
-  m_Name: Sausage_Raw
+  m_Name: Drink
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   Sprites:
-  - {fileID: 21300000, guid: e040479a3e3cf5f4e9048725d161a435, type: 3}
-  SortingOrder: 01000000
+  - {fileID: 21300000, guid: 4a76b20d5a0302e4c93b24d4eaf0ace0, type: 3}
+  SortingOrder: 03000000
   IsReadyToBeCombined: 0
-  NextCookingStage: {fileID: 11400000, guid: ee1ba5f62f0db844e9a4484485838f49, type: 2}
+  NextCookingStage: {fileID: 0}

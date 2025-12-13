@@ -15,3 +15,5 @@ MonoBehaviour:
   Sprites:
   - {fileID: 21300000, guid: 264f4bf1e57d04f44a1fbcc5eacecc17, type: 3}
   SortingOrder: 01000000
+  IsReadyToBeCombined: 1
+  NextCookingStage: {fileID: 11400000, guid: 57116ddbbf1317449ad59bdbc75669c5, type: 2}
