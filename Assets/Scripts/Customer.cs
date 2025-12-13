@@ -18,6 +18,7 @@ public class WantedFoodPair
 
 public class Customer : MonoBehaviour, IInteractable
 {
+    [SerializeField] private List<Sprite> _charSprites;
     [SerializeField] private List<WantedFoodPair> _foodItems;
     [SerializeField] private FoodItem _requestedFoodItem;
     [SerializeField] private float _speed = 1f;
@@ -33,6 +34,9 @@ public class Customer : MonoBehaviour, IInteractable
 
     void Start()
     {
+        var spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = _charSprites[Random.Range(0, _charSprites.Count)];
+        
         int itemCount = System.Enum.GetValues(typeof(WantedItem)).Length;
         WantedItem randomItem = (WantedItem)Random.Range(0, itemCount);
         foreach (var item in _foodItems)
@@ -104,7 +108,8 @@ public class Customer : MonoBehaviour, IInteractable
         if (itemsGotRight == _requestedFoodItem.ItemList.Count &&
             _requestedFoodItem.ItemList.Count == foodItem.ItemList.Count)
         {
-            OnCustomerHappy?.Invoke();
+            if (_timeElapsed * 3f/2f >= _waitingTime) OnCustomerOk?.Invoke();
+            else OnCustomerHappy?.Invoke();
         }
         else if (itemsGotRight >= 2)
         {

@@ -256,6 +256,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dfc85d6e678fc84f8bba541562f2f6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Customer
+  _charSprites:
+  - {fileID: 2585668503038472673, guid: 8ab3250394298224682f5a3ad642089c, type: 3}
+  - {fileID: -7657288216671268857, guid: d7df7a037628e9048bc2516adaf2b323, type: 3}
+  - {fileID: -8953849875561426327, guid: 65309d69e1ea5c04e8d3896b11cf3e29, type: 3}
   _foodItems:
   - itemType: 0
     itemData:

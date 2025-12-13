@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   Sprites:
   - {fileID: 21300000, guid: 58c0d1ff2c3daa245bee75e94dbab202, type: 3}
-  SortingOrder: 02000000
+  SortingOrder: 04000000
+  IsReadyToBeCombined: 1
+  NextCookingStage: {fileID: 0}
