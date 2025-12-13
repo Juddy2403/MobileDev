@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum WantedItem
 {
@@ -7,22 +8,33 @@ public enum WantedItem
     Fries,
     Drink
 }
+
 [System.Serializable]
 public class WantedFoodPair
 {
     public WantedItem itemType;
     public List<ItemData> itemData;
 }
-public class Customer : MonoBehaviour
-{
 
+public class Customer : MonoBehaviour, IInteractable
+{
     [SerializeField] private List<WantedFoodPair> _foodItems;
     [SerializeField] private FoodItem _requestedFoodItem;
+    [SerializeField] private float _speed = 1f;
+    [SerializeField] private Image _waitingBar;
+    [SerializeField] private float _waitingTime = 15f;
+    private float _timeElapsed = 0f;
+    public Vector2? Target { get; set; } = null;
+    public event System.Action<Customer> OnLeaving;
+    public event System.Action OnCustomerHappy;
+    public event System.Action OnCustomerOk;
+    public event System.Action OnCustomerUnhappy;
+    private bool _left = false;
 
     void Start()
     {
         int itemCount = System.Enum.GetValues(typeof(WantedItem)).Length;
-        WantedItem randomItem = (WantedItem) Random.Range(0, itemCount);
+        WantedItem randomItem = (WantedItem)Random.Range(0, itemCount);
         foreach (var item in _foodItems)
         {
             if (item.itemType != randomItem) continue;
@@ -38,13 +50,79 @@ public class Customer : MonoBehaviour
                     }
                 }
             }
-            else
-            {
-                _requestedFoodItem.AddFoodItem(item.itemData[0]);
-            }
+            else _requestedFoodItem.AddFoodItem(item.itemData[0]);
+
             break;
         }
-        
     }
 
+    void Update()
+    {
+        UpdateWaitingBar();
+        MoveTowardsTarget();
+    }
+
+    private void UpdateWaitingBar()
+    {
+        if (_left || Target.HasValue) return;
+        _timeElapsed += Time.deltaTime;
+        _waitingBar.fillAmount = (_waitingTime - _timeElapsed) / _waitingTime;
+        if (_timeElapsed >= _waitingTime)
+        {
+            Leave();
+            OnCustomerUnhappy?.Invoke();
+        }
+    }
+
+    private void MoveTowardsTarget()
+    {
+        if (!Target.HasValue) return;
+        transform.position = Vector2.MoveTowards(
+            transform.position,
+            Target.Value,
+            _speed * Time.deltaTime
+        );
+        if (Vector2.Distance(transform.position, Target.Value) <= 0.01f)
+        {
+            Target = null;
+            if (_left) Destroy(gameObject);
+        }
+    }
+
+    public void OnTouchStart()
+    {
+    }
+
+    public void OnTouchEnd(FoodItem foodItem)
+    {
+        int itemsGotRight = 0;
+        foreach (var item in _requestedFoodItem.ItemList)
+        {
+            if (foodItem.ItemList.Contains(item)) itemsGotRight++;
+        }
+
+        if (itemsGotRight == _requestedFoodItem.ItemList.Count &&
+            _requestedFoodItem.ItemList.Count == foodItem.ItemList.Count)
+        {
+            OnCustomerHappy?.Invoke();
+        }
+        else if (itemsGotRight >= 2)
+        {
+            OnCustomerOk?.Invoke();
+        }
+        else
+        {
+            OnCustomerUnhappy?.Invoke();
+        }
+
+        Leave();
+        Destroy(foodItem.gameObject);
+    }
+
+    private void Leave()
+    {
+        OnLeaving?.Invoke(this);
+        Target = transform.position + Vector3.left * 10f;
+        _left = true;
+    }
 }
