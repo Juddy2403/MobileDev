@@ -3,7 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ItemContainer : MonoBehaviour
+public class ItemContainer : MonoBehaviour, IInteractable
 {
     [SerializeField] private GameObject _containedItemPrefab;
     [SerializeField] private ItemData _containedItemData;
@@ -14,25 +14,32 @@ public class ItemContainer : MonoBehaviour
         _collider = GetComponent<BoxCollider2D>();
     }
 
-    private void OnEnable()
-    {
-        InputManager.Instance.PointerDown += OnPointerDown;
-    }
+    // private void OnEnable()
+    // {
+    //     InputManager.Instance.PointerDown += OnPointerDown;
+    // }
+    //
+    // private void OnDisable()
+    // {
+    //     if(InputManager.Instance != null) InputManager.Instance.PointerDown -= OnPointerDown;
+    // }
+    //
+    // private void OnPointerDown()
+    // {
+    //     if (!_collider.OverlapPoint(worldPos)) return;
+    //     Debug.Log("ItemContainer: OnPointerDown");
+    //     var item = Instantiate(_containedItemPrefab, worldPos, Quaternion.identity);
+    //     var foodItem = item.GetComponent<FoodItem>();
+    //     foodItem.ItemData = _containedItemData;
+    //     foodItem.OnTouchStart();
+    // }
 
-    private void OnDisable()
-    {
-        if(InputManager.Instance != null) InputManager.Instance.PointerDown -= OnPointerDown;
-    }
-
-    private void OnPointerDown()
+    public void OnTouchStart()
     {
         var worldPos = InputManager.Instance.WorldPosition;
-        if (!_collider.OverlapPoint(worldPos)) return;
-        Debug.Log("ItemContainer: OnPointerDown");
         var item = Instantiate(_containedItemPrefab, worldPos, Quaternion.identity);
         var foodItem = item.GetComponent<FoodItem>();
         foodItem.ItemData = _containedItemData;
-        foodItem.StartDragging();
+        foodItem.OnTouchStart();
     }
-
 }

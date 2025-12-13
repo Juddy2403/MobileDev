@@ -13,9 +13,13 @@ public class InputManager : Singleton<InputManager>
 
     protected override void Awake()
     {
-        _camera = Camera.main;
         base.Awake();
         _inputActions = new InputActions();
+    }
+
+    private void Start()
+    {
+        _camera = Camera.main;
     }
 
     void OnEnable()
@@ -36,6 +40,11 @@ public class InputManager : Singleton<InputManager>
     {
         UpdateWorldPos();
         PointerDown?.Invoke();
+        // see if there's any 2d collider under the touch
+        RaycastHit2D hit = Physics2D.Raycast(WorldPosition, Vector2.zero);
+        if (hit.collider == null) return;
+        var interactable = hit.collider.gameObject.GetComponent<IInteractable>();
+        interactable?.OnTouchStart();
     }
 
     private void Update()

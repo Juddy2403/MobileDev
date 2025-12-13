@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FoodItem : MonoBehaviour
+public class FoodItem : MonoBehaviour, IInteractable
 {
     public ItemData ItemData { get; set; }
     
@@ -18,12 +18,6 @@ public class FoodItem : MonoBehaviour
         }
     }
 
-    public void StartDragging()
-    {
-        InputManager.Instance.PointerMove += OnMove;
-        InputManager.Instance.PointerUp += StopDragging;
-    }
-
     private void StopDragging()
     {
         if (InputManager.Instance == null) return;
@@ -36,4 +30,9 @@ public class FoodItem : MonoBehaviour
         transform.position = obj;
     }
 
+    public void OnTouchStart()
+    {
+        InputManager.Instance.PointerMove += OnMove;
+        InputManager.Instance.PointerUp += StopDragging;
+    }
 }
