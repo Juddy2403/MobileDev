@@ -5,33 +5,51 @@ using UnityEngine;
 public class Grill : MonoBehaviour, IInteractable
 {
     [SerializeField] private float _cookingTime = 2f;
-    private FoodItem _foodItem;
-    public void OnTouchStart()
-    {
-        
-    }
+
+    // Track cooking coroutines per food item
+    private Dictionary<FoodItem, Coroutine> _activeCooking = new();
+
+    public void OnTouchStart() { }
 
     public void OnTouchEnd(FoodItem foodItem)
     {
-        if (foodItem.ItemList.Count is > 1 or 0) return;
+        // Only allow single-item food stacks
+        if (foodItem.ItemList.Count != 1) return;
+
         if (foodItem.ItemList[0]?.NextCookingStage == null) return;
-        _foodItem = foodItem;
-        _foodItem.OnPickedUp += OnActivePickedUp;
-        StartCoroutine(nameof(CookItem));
+
+        // Prevent starting twice
+        if (_activeCooking.ContainsKey(foodItem)) return;
+
+        foodItem.OnPickedUp += () => OnFoodPickedUp(foodItem);
+
+        Coroutine cookRoutine = StartCoroutine(CookItem(foodItem));
+        _activeCooking.Add(foodItem, cookRoutine);
     }
 
-    IEnumerator CookItem()
+    IEnumerator CookItem(FoodItem foodItem)
     {
-        while (_foodItem.ItemList[0]?.NextCookingStage != null)
+        while (foodItem.ItemList[0]?.NextCookingStage)
         {
             yield return new WaitForSeconds(_cookingTime);
-            _foodItem.CookItem();
+            foodItem.CookItem();
+        }
+
+        Cleanup(foodItem);
+    }
+
+    private void OnFoodPickedUp(FoodItem foodItem)
+    {
+        if (_activeCooking.TryGetValue(foodItem, out var routine))
+        {
+            StopCoroutine(routine);
+            Cleanup(foodItem);
         }
     }
-    
-    private void OnActivePickedUp()
+
+    private void Cleanup(FoodItem foodItem)
     {
-        StopCoroutine(nameof(CookItem));
+        foodItem.OnPickedUp -= () => OnFoodPickedUp(foodItem);
+        _activeCooking.Remove(foodItem);
     }
-    
 }
