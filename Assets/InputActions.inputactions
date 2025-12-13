@@ -1,6 +1,6 @@
 {
     "version": 1,
-    "name": "InputSystem_Actions",
+    "name": "InputActions",
     "maps": [
         {
             "name": "Player",
@@ -8,7 +8,7 @@
             "actions": [
                 {
                     "name": "TouchMove",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "351f2ccd-1f9f-44bf-9bec-d62ac5c5f408",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -32,7 +32,7 @@
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "TouchMove",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -40,10 +40,10 @@
                 {
                     "name": "",
                     "id": "a05957a8-5131-4d41-84f6-6579416ed822",
-                    "path": "<Touchscreen>/primaryTouch/position",
+                    "path": "<Touchscreen>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Touch",
                     "action": "TouchMove",
                     "isComposite": false,
                     "isPartOfComposite": false
