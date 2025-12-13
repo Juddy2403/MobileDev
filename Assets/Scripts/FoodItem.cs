@@ -16,7 +16,7 @@ public class FoodItem : MonoBehaviour, IInteractable
         for(int i = 0; i < itemData.Sprites.Count; i++)
         {
             GameObject itemPart = new GameObject(itemData.name);
-            itemPart.transform.SetParent(this.transform);
+            itemPart.transform.SetParent(this.transform, false);
             SpriteRenderer sr = itemPart.AddComponent<SpriteRenderer>();
             sr.sprite = itemData.Sprites[i];
             sr.sortingOrder = itemData.SortingOrder[i];
