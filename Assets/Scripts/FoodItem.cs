@@ -1,19 +1,22 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FoodItem : MonoBehaviour, IInteractable
 {
-    public ItemData ItemData { get; set; }
-    
-    void Start()
+    private List<ItemData> _itemList = new List<ItemData>();
+    private int _partCounter = 0;
+
+    public void AddFoodItem(ItemData itemData)
     {
-        if (!ItemData) return;
-        for(int i = 0; i < ItemData.Sprites.Count; i++)
+        if (!itemData) return;
+        _itemList.Add(itemData);
+        for(int i = 0; i < itemData.Sprites.Count; i++)
         {
-            GameObject itemPart = new GameObject("Part_" + i);
+            GameObject itemPart = new GameObject("Part_" + _partCounter++);
             itemPart.transform.SetParent(this.transform);
             SpriteRenderer sr = itemPart.AddComponent<SpriteRenderer>();
-            sr.sprite = ItemData.Sprites[i];
-            sr.sortingOrder = ItemData.SortingOrder[i];
+            sr.sprite = itemData.Sprites[i];
+            sr.sortingOrder = itemData.SortingOrder[i];
             itemPart.transform.localPosition = Vector3.zero;
         }
     }
@@ -23,6 +26,9 @@ public class FoodItem : MonoBehaviour, IInteractable
         if (InputManager.Instance == null) return;
         InputManager.Instance.PointerMove -= OnMove;
         InputManager.Instance.PointerUp -= StopDragging;
+        // Interact with the object under when letting go
+        var interactable = InputManager.Instance.GetInteractableUnderObject(gameObject);
+        interactable?.OnTouchEnd(this);
     }
 
     private void OnMove(Vector2 obj)
@@ -34,5 +40,10 @@ public class FoodItem : MonoBehaviour, IInteractable
     {
         InputManager.Instance.PointerMove += OnMove;
         InputManager.Instance.PointerUp += StopDragging;
+    }
+
+    public void OnTouchEnd(FoodItem foodItem)
+    {
+        // try to combine
     }
 }

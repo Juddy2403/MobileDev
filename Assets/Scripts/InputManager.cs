@@ -46,6 +46,17 @@ public class InputManager : Singleton<InputManager>
         var interactable = hit.collider.gameObject.GetComponent<IInteractable>();
         interactable?.OnTouchStart();
     }
+    public IInteractable GetInteractableUnderObject(GameObject obj)
+    {
+        RaycastHit2D[] hits = Physics2D.RaycastAll(WorldPosition, Vector2.zero);
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider.gameObject == obj) continue;
+            var interactable = hit.collider.gameObject.GetComponent<IInteractable>();
+            if (interactable != null) return interactable;
+        }
+        return null;
+    }
 
     private void Update()
     {

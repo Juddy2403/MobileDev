@@ -6,4 +6,6 @@ public class ItemData : ScriptableObject
 {
     public List<Sprite> Sprites;
     public List<int> SortingOrder;
+    public bool IsReadyToBeCombined = true;
+    public ItemData NextCookingStage;
 }

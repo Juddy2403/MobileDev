@@ -14,32 +14,17 @@ public class ItemContainer : MonoBehaviour, IInteractable
         _collider = GetComponent<BoxCollider2D>();
     }
 
-    // private void OnEnable()
-    // {
-    //     InputManager.Instance.PointerDown += OnPointerDown;
-    // }
-    //
-    // private void OnDisable()
-    // {
-    //     if(InputManager.Instance != null) InputManager.Instance.PointerDown -= OnPointerDown;
-    // }
-    //
-    // private void OnPointerDown()
-    // {
-    //     if (!_collider.OverlapPoint(worldPos)) return;
-    //     Debug.Log("ItemContainer: OnPointerDown");
-    //     var item = Instantiate(_containedItemPrefab, worldPos, Quaternion.identity);
-    //     var foodItem = item.GetComponent<FoodItem>();
-    //     foodItem.ItemData = _containedItemData;
-    //     foodItem.OnTouchStart();
-    // }
-
     public void OnTouchStart()
     {
         var worldPos = InputManager.Instance.WorldPosition;
         var item = Instantiate(_containedItemPrefab, worldPos, Quaternion.identity);
         var foodItem = item.GetComponent<FoodItem>();
-        foodItem.ItemData = _containedItemData;
+        foodItem.AddFoodItem(_containedItemData);
         foodItem.OnTouchStart();
+    }
+
+    public void OnTouchEnd(FoodItem foodItem)
+    {
+        Destroy(foodItem.gameObject);
     }
 }
