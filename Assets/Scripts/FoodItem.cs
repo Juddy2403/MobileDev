@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine.Serialization;
 
 public class FoodItem : MonoBehaviour, IInteractable
 {
-    public event System.Action OnPickedUp;
+    public event System.Action<FoodItem> OnPickedUp;
     public List<ItemData> ItemList => _itemList;
     private List<ItemData> _itemList = new List<ItemData>();
 
@@ -43,7 +44,7 @@ public class FoodItem : MonoBehaviour, IInteractable
     {
         InputManager.Instance.PointerMove += OnMove;
         InputManager.Instance.PointerUp += StopDragging;
-        OnPickedUp?.Invoke();
+        OnPickedUp?.Invoke(this);
     }
 
     public void OnTouchEnd(FoodItem foodItem)
@@ -67,9 +68,28 @@ public class FoodItem : MonoBehaviour, IInteractable
     {
         if (ItemList.Count is > 1 or 0) return;
         ItemData nextCookingStage = ItemList[0].NextCookingStage;
-        if (nextCookingStage == null) return;
+        if (!nextCookingStage) return;
         Destroy(transform.GetChild(0).gameObject);
         ItemList.Clear();
         AddFoodItem(nextCookingStage);
+    }
+    
+    IEnumerator Cooking()
+    {
+        while (ItemList[0]?.NextCookingStage)
+        {
+            yield return new WaitForSeconds(ItemList[0].CookTime);
+            CookItem();
+        }
+    }
+
+    public void StartCooking()
+    {
+        StartCoroutine(Cooking());
+    }
+    
+    public void StopCooking()
+    {
+        StopCoroutine(Cooking());
     }
 }

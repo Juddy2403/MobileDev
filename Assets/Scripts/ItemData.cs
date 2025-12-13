@@ -8,4 +8,5 @@ public class ItemData : ScriptableObject
     public List<int> SortingOrder;
     public bool IsReadyToBeCombined = true;
     public ItemData NextCookingStage;
+    public float CookTime = 2f;
 }
