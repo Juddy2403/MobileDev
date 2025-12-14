@@ -44,7 +44,7 @@ public class Customer : MonoBehaviour, IInteractable
         foreach (var item in _foodItems)
         {
             if (item.itemType != randomItem) continue;
-            if (randomItem == WantedItem.HotDog || randomItem == WantedItem.Burger)
+            if (randomItem is WantedItem.HotDog or WantedItem.Burger)
             {
                 for (int i = 0; i < item.itemData.Count; i++)
                 {
@@ -130,7 +130,7 @@ public class Customer : MonoBehaviour, IInteractable
     private void Leave()
     {
         OnLeaving?.Invoke(this);
-        Target = transform.position + Vector3.left * 10f;
+        Target = transform.position + Vector3.left * 15f;
         _left = true;
     }
 }

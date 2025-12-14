@@ -14,6 +14,10 @@ public class CustomerManager : Singleton<CustomerManager>
     private void Start()
     {
         _customers = new List<GameObject>();
+        if (GameManager.Instance.ActiveStandIdx == 1)
+        {
+            _spawnInterval *= 0.7f;
+        }
         AddCustomer();
     }
 

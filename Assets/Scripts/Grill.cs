@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grill : MonoBehaviour, IInteractable
+public class Grill : MonoBehaviour
 {
-    public void OnTouchStart() { }
-
-    public void OnTouchEnd(FoodItem foodItem)
+    public void StartGrilling(FoodItem foodItem)
     {
         // Only allow single-item food stacks
         if (foodItem.ItemList.Count != 1) return;

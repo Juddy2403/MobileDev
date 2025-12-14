@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -41,10 +42,12 @@ public class InputManager : Singleton<InputManager>
         UpdateWorldPos();
         PointerDown?.Invoke();
         // see if there's any 2d collider under the touch
-        RaycastHit2D hit = Physics2D.Raycast(WorldPosition, Vector2.zero);
-        if (hit.collider == null) return;
-        var interactable = hit.collider.gameObject.GetComponent<IInteractable>();
-        interactable?.OnTouchStart();
+        var hits = Physics2D.RaycastAll(WorldPosition, Vector2.zero);
+        var firstInteractable = hits
+            .Select(hit => hit.collider.GetComponent<IInteractable>())
+            .FirstOrDefault(interactable => interactable != null);
+
+        firstInteractable?.OnTouchStart();
     }
     public IInteractable GetInteractableUnderObject(GameObject obj)
     {
@@ -54,6 +57,18 @@ public class InputManager : Singleton<InputManager>
             if (hit.collider.gameObject == obj) continue;
             var interactable = hit.collider.gameObject.GetComponent<IInteractable>();
             if (interactable != null) return interactable;
+        }
+        return null;
+    }
+    
+    public Grill GetGrillUnderObject(GameObject obj)
+    {
+        RaycastHit2D[] hits = Physics2D.RaycastAll(WorldPosition, Vector2.zero);
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider.gameObject == obj) continue;
+            var grill = hit.collider.gameObject.GetComponent<Grill>();
+            if (grill != null) return grill;
         }
         return null;
     }

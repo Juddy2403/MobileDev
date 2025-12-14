@@ -17,6 +17,11 @@ public class ScoreManager : Singleton<ScoreManager>
     private void Start()
     {
         _scoreText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
+        if (GameManager.Instance.ActiveStandIdx == 1)
+        {
+            _onCustomerHappyScore *= 2;
+            _onCustomerOkScore *= 2;
+        }
     }
     
     private void AddScore(int amount)

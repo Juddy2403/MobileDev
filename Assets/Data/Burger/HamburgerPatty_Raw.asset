@@ -17,4 +17,4 @@ MonoBehaviour:
   SortingOrder: 02000000
   IsReadyToBeCombined: 0
   NextCookingStage: {fileID: 11400000, guid: 925222f8dc803584aa4209ffb0d7b1ea, type: 2}
-  CookTime: 2
+  CookTime: 3

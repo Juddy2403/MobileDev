@@ -33,6 +33,8 @@ public class FoodItem : MonoBehaviour, IInteractable
         // Interact with the object under when letting go
         var interactable = InputManager.Instance.GetInteractableUnderObject(gameObject);
         interactable?.OnTouchEnd(this);
+        var grill = InputManager.Instance.GetGrillUnderObject(gameObject);
+        grill?.StartGrilling( this);
     }
 
     private void OnMove(Vector2 obj)
