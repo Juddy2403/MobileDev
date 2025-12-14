@@ -44,6 +44,7 @@ public class StartMenuUi : MonoBehaviour
 
     public int GetActiveStand()
     {
+        if (!GameManager.Instance.BoughtBurgerStand) return 0;
         var toggleValue = _uiDocument.rootVisualElement.Q<ToggleButtonGroup>("StandToggle").value;
         var activeOptions = toggleValue.GetActiveOptions(stackalloc int[toggleValue.length]);
         if (activeOptions.Length == 0) return -1;

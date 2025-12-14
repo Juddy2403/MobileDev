@@ -15,6 +15,11 @@ public class MoneyManager : Singleton<MoneyManager>
     private void Start()
     {
         _cashText = GameObject.Find("MoneyText").GetComponent<TextMeshProUGUI>();
+        if (GameManager.Instance.ActiveStandIdx == 1)
+        {
+            _onCustomerHappyIncome *= 2;
+            _onCustomerOkIncome *= 2;
+        }
     }
     
     private void AddMoney(int amount)
