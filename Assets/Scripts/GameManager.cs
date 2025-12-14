@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -12,21 +9,36 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private float _faultForUnhappy = 1f;
     [SerializeField] private float _faultForOk = 0.33f;
 
-    private float _currentScore;
-    private float _highScore;
+    private int _currentScore;
+    private int _highScore;
+    private int _totalMoney;
     private EndMenuUI _endMenuUI;
 
-    public float CurrentScore
+    public int TotalMoney
+    {
+        get => _totalMoney;
+        set
+        {
+            _totalMoney = value;
+            PlayerPrefs.SetInt("TotalMoney", _totalMoney);
+        }
+    }
+    
+    public int CurrentScore
     {
         get => _currentScore;
         set
         {
             _currentScore = value;
-            if (_currentScore > _highScore) _highScore = _currentScore;
+            if (_currentScore > _highScore)
+            {
+                _highScore = _currentScore;
+                PlayerPrefs.SetInt("HighScore", HighScore);
+            }
         }
     }
 
-    public float HighScore => _highScore;
+    public int HighScore => _highScore;
 
     public UnityEvent OnGameOver;
     private float _fault;
@@ -38,6 +50,8 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
         DontDestroyOnLoad(gameObject);
+        _highScore = PlayerPrefs.GetInt("HighScore", 0);
+        TotalMoney = PlayerPrefs.GetInt("TotalMoney", 0);
     }
 
     private void TakeFault(float amount)
@@ -46,6 +60,7 @@ public class GameManager : Singleton<GameManager>
         if (!(_fault <= 0)) return;
         OnGameOver?.Invoke();
         CurrentScore = ScoreManager.Instance.Score;
+        TotalMoney += MoneyManager.Instance.Money;
         _endMenuUI.gameObject.SetActive(true);
         Time.timeScale = 0f;
         InterstitialAd.Instance.OnAdCompleted.AddListener(ContinueGame);
@@ -62,6 +77,8 @@ public class GameManager : Singleton<GameManager>
     private void ContinueGame()
     {
         Time.timeScale = 1f;
+        // Money will be added back when the game is lost and not continued
+        TotalMoney -= MoneyManager.Instance.Money;
         _fault = _faultsBeforeLose / 2f;
         _endMenuUI?.gameObject.SetActive(false);
         InterstitialAd.Instance.OnAdCompleted.RemoveListener(ContinueGame);

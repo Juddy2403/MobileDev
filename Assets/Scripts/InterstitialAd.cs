@@ -9,8 +9,9 @@ public class InterstitialAd : Singleton<InterstitialAd>, IUnityAdsLoadListener, 
     string _adUnitId;
     public UnityEvent OnAdCompleted;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         // Get the Ad Unit ID for the current platform:
         _adUnitId = (Application.platform == RuntimePlatform.IPhonePlayer)
             ? _iOSAdUnitId
