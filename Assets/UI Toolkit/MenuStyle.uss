@@ -41,6 +41,6 @@
     -unity-text-outline-color: rgb(161, 97, 39);
 }
 
-.button:selected {
+.button:checked {
     -unity-background-image-tint-color: rgb(245, 164, 61);
 }

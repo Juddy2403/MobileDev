@@ -6,7 +6,8 @@ public enum WantedItem
 {
     HotDog,
     Fries,
-    Drink
+    Drink,
+    Burger
 }
 
 [System.Serializable]
@@ -39,10 +40,11 @@ public class Customer : MonoBehaviour, IInteractable
 
         int itemCount = System.Enum.GetValues(typeof(WantedItem)).Length;
         WantedItem randomItem = (WantedItem)Random.Range(0, itemCount);
+        if (randomItem == WantedItem.HotDog && GameManager.Instance.ActiveStandIdx == 1) randomItem = WantedItem.Burger;
         foreach (var item in _foodItems)
         {
             if (item.itemType != randomItem) continue;
-            if (randomItem == WantedItem.HotDog)
+            if (randomItem == WantedItem.HotDog || randomItem == WantedItem.Burger)
             {
                 for (int i = 0; i < item.itemData.Count; i++)
                 {

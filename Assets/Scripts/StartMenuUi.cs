@@ -8,7 +8,7 @@ public class StartMenuUi : MonoBehaviour
     void Start()
     {
         _uiDocument = GetComponent<UIDocument>();
-        _uiDocument.rootVisualElement.Q<Button>("PlayButton").clicked += () => { GameManager.Instance.StartGame(); };
+        _uiDocument.rootVisualElement.Q<Button>("PlayButton").clicked += OnPlayButton;
         _uiDocument.rootVisualElement.Q<Button>("LeaderboardButton").clicked += OnLeaderboardButton;
         _uiDocument.rootVisualElement.Q<Label>("MoneyLabel").text = GameManager.Instance.TotalMoney.ToString() + " $";
         var boughtBurgerStand = GameManager.Instance.BoughtBurgerStand;
@@ -24,10 +24,16 @@ public class StartMenuUi : MonoBehaviour
         }
     }
 
+    private void OnPlayButton()
+    {
+        GameManager.Instance.ActiveStandIdx = GetActiveStand();
+        GameManager.Instance.StartGame();
+    }
+
     private void OnBuyBurger()
     {
-        if (GameManager.Instance.TotalMoney < 10) return;
-        GameManager.Instance.TotalMoney -= 10;
+        if (GameManager.Instance.TotalMoney < 1000) return;
+        GameManager.Instance.TotalMoney -= 1000;
         _uiDocument.rootVisualElement.Q<Label>("MoneyLabel").text = GameManager.Instance.TotalMoney.ToString() + " $";
         GameManager.Instance.BoughtBurgerStand = true;
         _uiDocument.rootVisualElement.Q<GroupBox>("BuyStandGroup").visible = false;
@@ -40,7 +46,7 @@ public class StartMenuUi : MonoBehaviour
     {
         var toggleValue = _uiDocument.rootVisualElement.Q<ToggleButtonGroup>("StandToggle").value;
         var activeOptions = toggleValue.GetActiveOptions(stackalloc int[toggleValue.length]);
-        Debug.Log(activeOptions[0]);
+        if (activeOptions.Length == 0) return -1;
         return activeOptions[0];
     }
 

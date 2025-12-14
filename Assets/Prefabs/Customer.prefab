@@ -274,6 +274,14 @@ MonoBehaviour:
   - itemType: 2
     itemData:
     - {fileID: 11400000, guid: ab5dc8d1fe6399c4a95252acc4ec6375, type: 2}
+  - itemType: 3
+    itemData:
+    - {fileID: 11400000, guid: 50c20da08d5c78545ac4c17cf39191b5, type: 2}
+    - {fileID: 11400000, guid: 925222f8dc803584aa4209ffb0d7b1ea, type: 2}
+    - {fileID: 11400000, guid: dcea3b5842f22ca439b83739cb9a86bd, type: 2}
+    - {fileID: 11400000, guid: 7b612faa6559ee0429697294e0a72691, type: 2}
+    - {fileID: 11400000, guid: 2c6f7e87254d7ea4db4770f0fd6c45d3, type: 2}
+    - {fileID: 11400000, guid: 5833bb65baed68147848c1d6da91045b, type: 2}
   _requestedFoodItem: {fileID: 8266574327962689103}
   _speed: 5
   _waitingBar: {fileID: 824430906162782079}

@@ -16,6 +16,7 @@ public class GameManager : Singleton<GameManager>
     private bool _boughtBurgerStand;
     private string _username;
     private EndMenuUI _endMenuUI;
+    public int ActiveStandIdx { get; set; }
 
     public bool BoughtBurgerStand
     {
@@ -95,7 +96,8 @@ public class GameManager : Singleton<GameManager>
     {
         Time.timeScale = 1f;
         _fault = _faultsBeforeLose;
-        SceneManager.LoadScene("MainScene");
+        if(ActiveStandIdx == 0) SceneManager.LoadScene("MainScene_HotDog");
+        else SceneManager.LoadScene("MainScene_Burger");
         StartCoroutine(FindEndUI());
     }
 
