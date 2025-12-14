@@ -36,7 +36,7 @@ public class Customer : MonoBehaviour, IInteractable
     {
         var spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = _charSprites[Random.Range(0, _charSprites.Count)];
-        
+
         int itemCount = System.Enum.GetValues(typeof(WantedItem)).Length;
         WantedItem randomItem = (WantedItem)Random.Range(0, itemCount);
         foreach (var item in _foodItems)
@@ -99,6 +99,7 @@ public class Customer : MonoBehaviour, IInteractable
 
     public void OnTouchEnd(FoodItem foodItem)
     {
+        if (_left) return;
         int itemsGotRight = 0;
         foreach (var item in _requestedFoodItem.ItemList)
         {
@@ -108,7 +109,7 @@ public class Customer : MonoBehaviour, IInteractable
         if (itemsGotRight == _requestedFoodItem.ItemList.Count &&
             _requestedFoodItem.ItemList.Count == foodItem.ItemList.Count)
         {
-            if (_timeElapsed * 3f/2f >= _waitingTime) OnCustomerOk?.Invoke();
+            if (_timeElapsed * 3f / 2f >= _waitingTime) OnCustomerOk?.Invoke();
             else OnCustomerHappy?.Invoke();
         }
         else if (itemsGotRight >= 2)
