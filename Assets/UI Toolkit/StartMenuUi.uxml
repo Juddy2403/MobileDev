@@ -1,5 +1,14 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Toolkit/MenuStyle.uss?fileID=7433441132597879392&amp;guid=793f07b0b6a0591478b478937d6b1ec5&amp;type=3#MenuStyle"/>
-    <ui:Button text="Play" name="PlayButton" selectable="false" focusable="false" class="button" style="bottom: -74%; left: -26%; right: auto; top: auto;"/>
+    <Style src="project://database/Assets/UI%20Toolkit/MenuStyle.uss?fileID=7433441132597879392&amp;guid=793f07b0b6a0591478b478937d6b1ec5&amp;type=3"/>
+    <ui:Button text="Play" name="PlayButton" selectable="false" focusable="false" class="button" style="bottom: -60%; left: -26%; right: auto; top: auto;"/>
     <ui:Label text="0 $" name="MoneyLabel" class="text" style="top: -7%; left: 3%; font-size: 67%; color: rgb(110, 243, 33); -unity-text-outline-color: rgb(43, 24, 6); align-self: flex-start; align-items: flex-start;"/>
+    <ui:Button text="Leaderboard" name="LeaderboardButton" selectable="false" focusable="false" class="button" style="bottom: -53%; left: -26%; right: auto; top: auto; width: 36%;"/>
+    <ui:ToggleButtonGroup label="Stand" value="01" is-multiple-selection="false" allow-empty-selection="false" name="StandToggle" class="text" style="flex-direction: column; width: 34%; align-self: center; align-items: stretch; justify-content: center; align-content: auto; height: 202px; font-size: 57px; bottom: 16%; right: 4%; position: absolute;">
+        <ui:Button text="Hot dog" name="HotDogBtn" class="button" style="width: 51%; height: 56%; font-size: 47px;"/>
+        <ui:Button text="Burger" name="BurgerBtn" class="button" style="width: 51%; height: 56%; font-size: 47px;"/>
+    </ui:ToggleButtonGroup>
+    <ui:GroupBox name="BuyStandGroup" style="position: absolute; right: 15%; bottom: auto; flex-direction: row; align-items: center; justify-content: space-between; top: 10%;">
+        <ui:Button text="Buy burger stand" name="BuyBurgerBtn" class="button" style="align-items: flex-start; align-self: center; font-size: 53px; width: 92%; height: 78%;"/>
+        <ui:Label text="1000 $" class="text" style="height: 84px; width: 182px; -unity-text-align: upper-left; font-size: 59px; color: rgb(34, 245, 37); -unity-text-outline-color: rgb(46, 13, 13);"/>
+    </ui:GroupBox>
 </ui:UXML>

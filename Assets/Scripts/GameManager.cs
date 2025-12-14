@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
+[DefaultExecutionOrder(-1)]
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private float _faultsBeforeLose = 3f;
@@ -12,8 +13,20 @@ public class GameManager : Singleton<GameManager>
     private int _currentScore;
     private int _highScore;
     private int _totalMoney;
+    private bool _boughtBurgerStand;
+    private string _username;
     private EndMenuUI _endMenuUI;
 
+    public bool BoughtBurgerStand
+    {
+        get => _boughtBurgerStand;
+        set
+        {
+            _boughtBurgerStand = value;
+            PlayerPrefs.SetInt("BoughtBurgerStand", _boughtBurgerStand ? 1 : 0);
+        }
+    }
+    
     public int TotalMoney
     {
         get => _totalMoney;
@@ -37,6 +50,16 @@ public class GameManager : Singleton<GameManager>
             }
         }
     }
+    
+    public string Username
+    {
+        get => _username;
+        set
+        {
+            _username = value;
+            PlayerPrefs.SetString("Username", _username);
+        }
+    }
 
     public int HighScore => _highScore;
 
@@ -52,6 +75,8 @@ public class GameManager : Singleton<GameManager>
         DontDestroyOnLoad(gameObject);
         _highScore = PlayerPrefs.GetInt("HighScore", 0);
         TotalMoney = PlayerPrefs.GetInt("TotalMoney", 0);
+        _username = PlayerPrefs.GetString("Username", "");
+        _boughtBurgerStand = PlayerPrefs.GetInt("BoughtBurgerStand", 0) == 1;
     }
 
     private void TakeFault(float amount)
@@ -72,6 +97,12 @@ public class GameManager : Singleton<GameManager>
         _fault = _faultsBeforeLose;
         SceneManager.LoadScene("MainScene");
         StartCoroutine(FindEndUI());
+    }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("StartScene");
     }
 
     private void ContinueGame()
