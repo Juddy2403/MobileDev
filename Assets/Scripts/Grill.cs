@@ -20,6 +20,7 @@ public class Grill : MonoBehaviour, IInteractable
     private void OnFoodPickedUp(FoodItem foodItem)
     {
         foodItem.StopCooking();
+        foodItem.OnPickedUp -= OnFoodPickedUp;
     }
 
 }

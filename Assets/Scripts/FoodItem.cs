@@ -82,14 +82,17 @@ public class FoodItem : MonoBehaviour, IInteractable
             CookItem();
         }
     }
-
+    private Coroutine _cookingRoutine = null;
     public void StartCooking()
     {
-        StartCoroutine(Cooking());
+        if (_cookingRoutine != null) return;
+        _cookingRoutine = StartCoroutine(Cooking());
     }
     
     public void StopCooking()
     {
-        StopCoroutine(Cooking());
+        if (_cookingRoutine == null) return;
+        StopCoroutine(_cookingRoutine);
+        _cookingRoutine = null;
     }
 }

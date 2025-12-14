@@ -26,17 +26,27 @@ public class CustomerManager : Singleton<CustomerManager>
         _customers.Add(newCustomer);
         customer.OnCustomerHappy += OnCustomerHappy;
         customer.OnCustomerOk += OnCustomerOk;
+        customer.OnCustomerUnhappy += OnCustomerUnhappy;
         if (_customers.Count < _maxCustomers) Invoke(nameof(AddCustomer), _spawnInterval);
+    }
+
+    private void OnCustomerUnhappy()
+    {
+        ScoreManager.Instance.OnCustomerUnhappy();
+        GameManager.Instance.OnCustomerUnhappy();
     }
 
     private void OnCustomerOk()
     {
         MoneyManager.Instance.OnCustomerOk();
+        ScoreManager.Instance.OnCustomerOk();
+        GameManager.Instance.OnCustomerOk();
     }
 
     private void OnCustomerHappy()
     {
         MoneyManager.Instance.OnCustomerHappy();
+        ScoreManager.Instance.OnCustomerHappy();
     }
 
     private void UpdateCustomersTargets(Customer obj)
@@ -48,7 +58,7 @@ public class CustomerManager : Singleton<CustomerManager>
         _customers.Remove(obj.gameObject);
         
         for(int i = 0; i < _customers.Count; i++)
-            _customers[i].GetComponent<Customer>().Target = _customerEndPosition.position + Vector3.right * _spaceBetween * i;
+            _customers[i].GetComponent<Customer>().Target = _customerEndPosition.position + Vector3.right * (_spaceBetween * i);
         
         CancelInvoke(nameof(AddCustomer));
         if (_customers.Count == 0) AddCustomer();
