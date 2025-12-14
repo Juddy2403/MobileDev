@@ -5,5 +5,5 @@
     <ui:Label text="Game lost" class="text" style="top: 22%; position: absolute; right: auto; left: auto; -unity-text-align: upper-center; white-space: pre; align-items: center; justify-content: center; align-self: center; align-content: auto; font-size: 76px; -unity-text-outline-width: 4px;"/>
     <ui:Label text="Score: 539" name="ScoreLabel" class="text" style="top: 34%; position: absolute; right: auto; left: auto; -unity-text-align: upper-center; white-space: pre; align-items: center; justify-content: center; align-self: center; align-content: auto;"/>
     <ui:Label text="High Score: 539" name="HighScoreLabel" class="text" style="top: 43%; position: absolute; right: auto; left: auto; -unity-text-align: upper-center; white-space: pre; align-items: center; justify-content: center; align-self: center; align-content: auto;"/>
-    <ui:Button text="Watch ad to continue?" name="AdButton" selectable="false" focusable="false" class="button" style="bottom: 283px; left: auto; right: auto; top: auto; position: absolute; width: 680px; font-size: 52px; background-size: 93% 718%; height: 82px;"/>
+    <ui:Button text="Watch ad to continue?" name="AdButton" selectable="false" focusable="false" class="button" style="bottom: 34%; left: auto; right: auto; top: auto; position: absolute; width: 44%; font-size: 52px; background-size: 93% 718%; height: 8%;"/>
 </ui:UXML>

@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -12,6 +14,7 @@ public class GameManager : Singleton<GameManager>
 
     private float _currentScore;
     private float _highScore;
+    private EndMenuUI _endMenuUI;
 
     public float CurrentScore
     {
@@ -43,12 +46,39 @@ public class GameManager : Singleton<GameManager>
         if (!(_fault <= 0)) return;
         OnGameOver?.Invoke();
         CurrentScore = ScoreManager.Instance.Score;
-        SceneManager.LoadScene("GameOverScene");
+        _endMenuUI.gameObject.SetActive(true);
+        Time.timeScale = 0f;
+        InterstitialAd.Instance.OnAdCompleted.AddListener(ContinueGame);
     }
 
     public void StartGame()
     {
+        Time.timeScale = 1f;
         _fault = _faultsBeforeLose;
         SceneManager.LoadScene("MainScene");
+        StartCoroutine(FindEndUI());
+    }
+
+    private void ContinueGame()
+    {
+        Time.timeScale = 1f;
+        _fault = _faultsBeforeLose / 2f;
+        _endMenuUI?.gameObject.SetActive(false);
+        InterstitialAd.Instance.OnAdCompleted.RemoveListener(ContinueGame);
+    }
+
+    private IEnumerator FindEndUI()
+    {
+        yield return null;
+        yield return null;
+        _endMenuUI = FindFirstObjectByType<EndMenuUI>();
+        if (!_endMenuUI)
+        {
+            Debug.LogError("EndMenuUI not found in the scene.");
+        }
+        else
+        {
+            _endMenuUI.gameObject.SetActive(false);
+        }
     }
 }
