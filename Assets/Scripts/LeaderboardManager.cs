@@ -24,6 +24,7 @@ public class LeaderboardManager : Singleton<LeaderboardManager>
             _usernameLabel.text = "Username: " + GameManager.Instance.Username;
             _usernameField.visible = false;
             _leaderboardBtn.visible = false;
+            UploadEntry(GameManager.Instance.Username, GameManager.Instance.HighScore);
         }
         else
         {

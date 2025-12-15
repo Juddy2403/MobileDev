@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.Events;
@@ -8,6 +9,7 @@ public class InterstitialAd : Singleton<InterstitialAd>, IUnityAdsLoadListener, 
     [SerializeField] string _iOSAdUnitId = "Interstitial_iOS";
     string _adUnitId;
     public UnityEvent OnAdCompleted;
+    bool _isLoaded = false;
 
     protected override void Awake()
     {
@@ -32,12 +34,14 @@ public class InterstitialAd : Singleton<InterstitialAd>, IUnityAdsLoadListener, 
         // Note that if the ad content wasn't previously loaded, this method will fail
         Debug.Log("Showing Ad: " + _adUnitId);
         Advertisement.Show(_adUnitId, this);
+        if (!_isLoaded) Debug.LogWarning("Ad Unit not loaded yet!");
     }
 
     // Implement Load Listener and Show Listener interface methods: 
     public void OnUnityAdsAdLoaded(string adUnitId)
     {
         // Optionally execute code if the Ad Unit successfully loads content.
+        _isLoaded = true;
     }
 
     public void OnUnityAdsFailedToLoad(string _adUnitId, UnityAdsLoadError error, string message)

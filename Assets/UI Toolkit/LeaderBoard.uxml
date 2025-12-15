@@ -1,18 +1,18 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Toolkit/MenuStyle.uss?fileID=7433441132597879392&amp;guid=793f07b0b6a0591478b478937d6b1ec5&amp;type=3"/>
+    <Style src="project://database/Assets/UI%20Toolkit/MenuStyle.uss?fileID=7433441132597879392&amp;guid=793f07b0b6a0591478b478937d6b1ec5&amp;type=3#MenuStyle"/>
     <ui:VisualElement name="VisualElement" style="flex-grow: 1; bottom: 0; background-image: url(&quot;project://database/Assets/ArtAssets/UI/UI_bar.png?fileID=2800000&amp;guid=bc866dd11e71a314eb55505c6ca5e5c6&amp;type=3#UI_bar&quot;); background-size: 44% 601%; -unity-text-align: middle-right; -unity-font-style: normal; -unity-background-image-tint-color: rgb(221, 149, 91); right: -21%;"/>
     <ui:Label text="Leaderboard" class="text" style="top: 15%; position: absolute; right: 10%; left: auto; -unity-text-align: upper-center; white-space: pre; align-items: center; justify-content: center; align-self: center; align-content: auto; font-size: 76px; -unity-text-outline-width: 4px; width: 37%; height: 9%;"/>
     <ui:Label text="High Score: 539" name="HighScoreLabel" class="text" style="top: 28%; position: absolute; right: auto; left: 7%; -unity-text-align: upper-center; white-space: pre; align-items: center; justify-content: center; align-self: center; align-content: auto; font-size: 64%; width: 37%; height: 9%;"/>
-    <ui:TextField label="Username " placeholder-text="player" hide-placeholder-on-focus="true" readonly="false" name="UsernameInput" class="text" style="justify-content: space-between; align-items: center; align-self: center; align-content: center; font-size: 43px; position: absolute; bottom: 34%; width: 35%; -unity-text-align: middle-center; -unity-background-image-tint-color: rgb(0, 0, 0); left: 7%; -unity-text-auto-size: none; height: 9%;"/>
+    <ui:TextField label="Username " placeholder-text="player" hide-placeholder-on-focus="true" readonly="false" name="UsernameInput" class="text" style="justify-content: center; align-items: stretch; align-self: center; align-content: stretch; font-size: 43%; position: absolute; bottom: 34%; width: 35%; -unity-text-align: middle-center; -unity-background-image-tint-color: rgb(0, 0, 0); left: 7%; -unity-text-auto-size: best-fit 10px 65px; height: 9%; -unity-background-scale-mode: scale-to-fit; background-position-x: center; -unity-text-outline-width: 2px;"/>
     <ui:Button text="Enter leaderboard" name="EnterLeaderboardButton" class="button" style="position: absolute; left: 6%; bottom: 20%; background-size: 94% 718%; font-size: 54px; width: 37%;"/>
-    <ui:Label text="Username: player" name="UsernameLabel" class="text" style="position: absolute; left: 7%; bottom: 35%; font-size: 43px; width: 37%; height: 9%;"/>
-    <ui:GroupBox name="LeaderboardGroupBox" style="position: absolute; right: 13%; top: 27%; width: 32%; height: 48%; flex-direction: column; align-self: center; justify-content: flex-start; align-items: center; align-content: auto;">
+    <ui:Label text="Username: player" name="UsernameLabel" class="text" style="position: absolute; left: 7%; bottom: 35%; font-size: 43px; width: 37%; height: 9%; align-content: center; align-self: center; justify-content: center; align-items: center;"/>
+    <ui:GroupBox name="LeaderboardGroupBox" style="position: absolute; right: 19%; top: 22%; width: 19%; height: 56%; flex-direction: column; align-self: center; justify-content: flex-start; align-items: center; align-content: auto;">
+        <ui:Label text="Username: 000000" name="Label" class="text" style="font-size: 43px;"/>
+        <ui:Label text="Username: 000000" name="Label" class="text" style="font-size: 43px; -unity-text-auto-size: best-fit 2px 60px;"/>
         <ui:Label text="Username: 000000" name="Label" class="text" style="font-size: 43px;"/>
         <ui:Label text="Username: 000000" name="Label" class="text" style="font-size: 43px;"/>
         <ui:Label text="Username: 000000" name="Label" class="text" style="font-size: 43px;"/>
-        <ui:Label text="Username: 000000" name="Label" class="text" style="font-size: 43px;"/>
-        <ui:Label text="Username: 000000" name="Label" class="text" style="font-size: 43px;"/>
-        <ui:Label text="Username: 000000" name="Label" class="text" style="font-size: 43px;"/>
+        <ui:Label text="Username: 000000" name="Label" class="text" style="font-size: 43px; -unity-text-auto-size: best-fit 2px 60px;"/>
     </ui:GroupBox>
     <ui:Button text="X" name="BackButton" class="button" style="position: absolute; left: 6%; bottom: auto; background-size: 94% 718%; font-size: 54px; width: 6%; -unity-background-image-tint-color: rgb(255, 64, 28); -unity-text-outline-color: rgb(0, 0, 0); top: 8%;"/>
 </ui:UXML>

@@ -1,16 +1,15 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Toolkit/MenuStyle.uss?fileID=7433441132597879392&amp;guid=793f07b0b6a0591478b478937d6b1ec5&amp;type=3"/>
+    <Style src="project://database/Assets/UI%20Toolkit/MenuStyle.uss?fileID=7433441132597879392&amp;guid=793f07b0b6a0591478b478937d6b1ec5&amp;type=3#MenuStyle"/>
     <ui:Button text="Play" name="PlayButton" selectable="false" focusable="false" class="button" style="bottom: -60%; left: -26%; right: auto; top: auto; font-size: 66%;"/>
     <ui:Label text="0 $" name="MoneyLabel" class="text" style="top: -7%; left: 3%; font-size: 67%; color: rgb(110, 243, 33); -unity-text-outline-color: rgb(43, 24, 6); align-self: flex-start; align-items: flex-start; width: 28%; height: 10%;"/>
     <ui:Button text="Leaderboard" name="LeaderboardButton" selectable="false" focusable="false" class="button" style="bottom: -53%; left: -26%; right: auto; top: auto; width: 36%;"/>
-    <ui:ToggleButtonGroup label="Stand" value="01" is-multiple-selection="false" allow-empty-selection="false" name="StandToggle" class="text" style="flex-direction: column; width: 34%; align-self: center; align-items: stretch; justify-content: center; align-content: auto; height: 23%; font-size: 66%; bottom: 16%; right: 4%; position: absolute; background-size: 100% 100%; flex-basis: 0%;">
+    <ui:ToggleButtonGroup label="" value="01" is-multiple-selection="false" allow-empty-selection="false" name="StandToggle" class="text" style="flex-direction: column; width: 24%; align-self: center; align-items: stretch; justify-content: center; align-content: auto; height: 17%; font-size: 50px; bottom: 11%; right: 11%; position: absolute; background-size: 92% 100%; flex-basis: 0%; -unity-text-auto-size: best-fit 10px 60px;">
         <ui:Button text="Hot dog" name="HotDogBtn" class="button" style="width: 51%; height: 56%; font-size: 47px;"/>
         <ui:Button text="Burger" name="BurgerBtn" class="button" style="width: 51%; height: 56%; font-size: 47px;"/>
     </ui:ToggleButtonGroup>
-
-
     <ui:GroupBox name="BuyStandGroup" tabindex="0" style="position: absolute; right: 7%; bottom: auto; flex-direction: row; align-items: center; justify-content: space-between; top: 10%; width: 46%; height: 12%;">
         <ui:Button text="Buy burger stand" name="BuyBurgerBtn" class="button" style="align-items: flex-start; align-self: center; font-size: 53%; width: 77%; height: 78%; -unity-text-generator: advanced;"/>
-        <ui:Label text="1000 $" class="text" style="height: 84%; width: 28%; -unity-text-align: upper-left; font-size: 59px; color: rgb(34, 245, 37); -unity-text-outline-color: rgb(46, 13, 13);"/>
+        <ui:Label text="200 $" class="text" style="height: 84%; width: 28%; -unity-text-align: upper-left; font-size: 59px; color: rgb(34, 245, 37); -unity-text-outline-color: rgb(46, 13, 13);"/>
     </ui:GroupBox>
+    <ui:Label text="Stand" class="text" style="font-size: 51%; width: 11%; height: 9%; bottom: 26%; right: 26%; position: absolute;"/>
 </ui:UXML>

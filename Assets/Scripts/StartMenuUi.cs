@@ -32,8 +32,8 @@ public class StartMenuUi : MonoBehaviour
 
     private void OnBuyBurger()
     {
-        if (GameManager.Instance.TotalMoney < 1000) return;
-        GameManager.Instance.TotalMoney -= 1000;
+        if (GameManager.Instance.TotalMoney < 200) return;
+        GameManager.Instance.TotalMoney -= 200;
         _uiDocument.rootVisualElement.Q<Label>("MoneyLabel").text = GameManager.Instance.TotalMoney.ToString() + " $";
         GameManager.Instance.BoughtBurgerStand = true;
         _uiDocument.rootVisualElement.Q<GroupBox>("BuyStandGroup").visible = false;

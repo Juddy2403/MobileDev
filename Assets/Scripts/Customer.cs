@@ -39,7 +39,7 @@ public class Customer : MonoBehaviour, IInteractable
         spriteRenderer.sprite = _charSprites[Random.Range(0, _charSprites.Count)];
 
         int itemCount = System.Enum.GetValues(typeof(WantedItem)).Length;
-        WantedItem randomItem = (WantedItem)Random.Range(0, itemCount);
+        WantedItem randomItem = (WantedItem)Random.Range(0, itemCount - 1);
         if (randomItem == WantedItem.HotDog && GameManager.Instance.ActiveStandIdx == 1) randomItem = WantedItem.Burger;
         foreach (var item in _foodItems)
         {

@@ -16,7 +16,17 @@ public class GameManager : Singleton<GameManager>
     private bool _boughtBurgerStand;
     private string _username;
     private EndMenuUI _endMenuUI;
-    public int ActiveStandIdx { get; set; }
+    private int _activeStandIdx;
+
+    public int ActiveStandIdx
+    {
+        get => _activeStandIdx;
+        set
+        {
+            if (!_boughtBurgerStand) _activeStandIdx = 0;
+            else _activeStandIdx = value;
+        }
+    }
 
     public bool BoughtBurgerStand
     {
