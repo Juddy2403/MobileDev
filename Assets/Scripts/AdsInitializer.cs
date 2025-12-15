@@ -27,6 +27,10 @@ public class AdsInitializer : MonoBehaviour, IUnityAdsInitializationListener
         {
             Advertisement.Initialize(_gameId, _testMode, this);
         }
+        else if (Advertisement.isSupported)
+        {
+            OnInitializationComplete();
+        }
     }
 
     public void OnInitializationComplete()
